@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الذكاء الشامل المتقدم</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --secondary: #a855f7;
+            --accent: #c084fc;
+            --dark: #0f0f1a;
+            --dark-2: #1a1a2e;
+            --dark-3: #252540;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Language Switch */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .lang-switch:hover {
+            background: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .intelligence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .intel-item {
+            background: var(--dark-3);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.3s;
+        }
+
+        .intel-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+
+        .intel-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .features-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+        }
+
+        .features-list li:before {
+            content: "◆";
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            border-radius: 16px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+            font-family: 'Tajawal', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Quiz Section */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .back-btn {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid var(--primary);
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover:not(:disabled) {
+            background: var(--primary);
+        }
+
+        .back-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .question-counter {
+            background: var(--dark-3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--dark-3);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .intel-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(139, 92, 246, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .intel-badge .icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 20px 0;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: var(--dark-3);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            padding: 16px 20px;
+            border-radius: 14px;
+            cursor: pointer;
+            text-align: start;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            color: var(--text);
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-btn:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        body.ltr .option-btn:hover {
+            transform: translateX(5px);
+        }
+
+        .option-btn.selected {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(168, 85, 247, 0.3) 100%);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .option-btn .letter {
+            width: 30px;
+            height: 30px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .option-btn.selected .letter {
+            background: var(--primary);
+        }
+
+        .confidence-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .confidence-title {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .confidence-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .conf-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: 2px solid;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: bold;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .conf-btn.sure {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .conf-btn.sure:hover, .conf-btn.sure.active {
+            background: var(--success);
+            color: white;
+        }
+
+        .conf-btn.maybe {
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .conf-btn.maybe:hover, .conf-btn.maybe.active {
+            background: var(--warning);
+            color: white;
+        }
+
+        .conf-btn.unsure {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .conf-btn.unsure:hover, .conf-btn.unsure.active {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+            font-family: 'Tajawal', sans-serif;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .btn-next.active {
+            opacity: 1;
+            pointer-events: auto;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Results */
+        .score-hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+            border-radius: 24px;
+            margin-bottom: 30px;
+        }
+
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--dark-2);
+            border-radius: 50%;
+        }
+
+        .score-number {
+            position: relative;
+            z-index: 1;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .result-item {
+            background: var(--dark-3);
+            padding: 20px;
+            border-radius: 16px;
+            margin: 15px 0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .result-item:hover {
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        body.ltr .result-item:hover {
+            transform: translateX(5px);
+        }
+
+        .result-info h3 {
+            color: var(--text);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-info small {
+            color: var(--text-muted);
+        }
+
+        .result-bar {
+            width: 120px;
+            height: 8px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .result-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 10px;
+            transition: width 1s ease;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .question-text {
+                font-size: 1.2rem;
+            }
+            .confidence-btns {
+                flex-direction: column;
+            }
+            .conf-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="lang-switch" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+
+    <div class="container">
+        <!-- Main Page -->
+        <div id="mainPage">
+            <div class="header">
+                <div class="logo">🧠</div>
+                <h1 id="title">اختبار الذكاء الشامل المتقدم</h1>
+                <p id="subtitle">اكتشف قدراتك الحقيقية مع اختبار علمي دقيق يقيس 7 أنواع مختلفة من الذكاء بنظام Elo احترافي</p>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 20px; color: var(--accent);" id="typesTitle">أنواع الذكاء السبعة:</h3>
+                <div class="intelligence-grid">
+                    <div class="intel-item">
+                        <div class="intel-icon">IQ</div>
+                        <div id="type1">المنطقي-الرياضي</div>
+                    </div>
+                    <div class="intel-item">
+                        <div class="intel-icon">LQ</div>
+                        <div id="type2">اللغوي</div>
+                    </div>
+                    <div class="intel-item">
+                        <div class="intel-icon">VQ</div>
+                        <div id="type3">البصري-المكاني</div>
+                    </div>
+                    <div class="intel-item">
+                        <div class="intel-icon">MQ</div>
+                        <div id="type4">الموسيقي</div>
+                    </div>
+                    <div class="intel-item">
+                        <div class="intel-icon">KQ</div>
+                        <div id="type5">الحركي-الجسدي</div>
+                    </div>
+                    <div class="intel-item">
+                        <div class="intel-icon">SQ</div>
+                        <div id="type6">الاجتماعي</div>
+                    </div>
+                    <div class="intel-item">
+                        <div class="intel-icon">EQ</div>
+                        <div id="type7">العاطفي</div>
+                    </div>
+                </div>
+
+                <ul class="features-list" id="featuresList">
+                    <li id="feat1">100 سؤال علمي موزع بالتساوي</li>
+                    <li id="feat2">نظام تصنيف Elo من 200 إلى 2800</li>
+                    <li id="feat3">إمكانية الرجوع 3 مرات فقط</li>
+                    <li id="feat4">خيار "لا أعرف" للتخلص من التخمين</li>
+                    <li id="feat5">قياس مستوى الثقة في كل إجابة</li>
+                    <li id="feat6">تحليل دقيق مدعوم بخوارزميات ذكية</li>
+                </ul>
+
+                <button class="btn-primary" onclick="startQuiz()" id="startBtn">
+                    🚀 ابدأ الاختبار الآن
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Page -->
+        <div id="quizPage" class="hidden">
+            <div class="card">
+                <div class="quiz-header">
+                    <button class="back-btn" onclick="goBack()" id="backBtn">
+                        ← رجوع (<span id="backCount">3</span>)
+                    </button>
+                    <div class="question-counter" id="counter">السؤال 1 من 100</div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress"></div>
+                </div>
+
+                <div class="intel-badge" id="intelBadge">
+                    <div class="icon" id="intelIcon">IQ</div>
+                    <span id="intelName">الذكاء المنطقي</span>
+                </div>
+
+                <div class="question-text" id="questionText">
+                    جاري تحميل السؤال...
+                </div>
+
+                <div class="options-grid" id="optionsContainer">
+                    <!-- Options will be inserted here -->
+                </div>
+
+                <div class="confidence-section" id="confidenceSection" style="display: none;">
+                    <div class="confidence-title">ما مدى ثقتك في إجابتك؟</div>
+                    <div class="confidence-btns">
+                        <button class="conf-btn sure" onclick="setConfidence('sure')">متأكد ✓</button>
+                        <button class="conf-btn maybe" onclick="setConfidence('maybe')">ممكن ~</button>
+                        <button class="conf-btn unsure" onclick="setConfidence('unsure')">غير متأكد ؟</button>
+                    </div>
+                </div>
+
+                <button class="btn-next" id="nextBtn" onclick="nextQuestion()">
+                    التالي ←
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div id="resultsPage" class="hidden">
+            <div class="header">
+                <h1 id="resultTitle">نتائجك التفصيلية</h1>
+    
